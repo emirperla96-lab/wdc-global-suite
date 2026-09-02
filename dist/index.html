@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WDC Global — Complete Product Suite (Redesigned)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #0a0f1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .showcase {
+            width: 100%;
+            max-width: 1400px;
+            background: linear-gradient(135deg, #0f1729 0%, #1a2332 50%, #0f1729 100%);
+            border-radius: 32px;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* Animated grid background */
+        .showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,166,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,166,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.2;
+            animation: float 8s infinite ease-in-out;
+        }
+        .orb1 {
+            width: 300px;
+            height: 300px;
+            background: #00A6FF;
+            top: -100px;
+            right: -100px;
+        }
+        .orb2 {
+            width: 200px;
+            height: 200px;
+            background: #0A2540;
+            bottom: -50px;
+            left: -50px;
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .brand-label {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #00A6FF;
+            margin-bottom: 8px;
+        }
+
+        .brand-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -1px;
+        }
+
+        .brand-subtitle {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 8px;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 24px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            border-color: rgba(0,166,255,0.3);
+            box-shadow: 0 0 40px rgba(0,166,255,0.1);
+            transform: translateY(-4px);
+        }
+
+        /* Product Card Glow */
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,166,255,0.05) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .product-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Product Number */
+        .product-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 1px;
+        }
+
+        /* Master Mark (small) */
+        .master-mark {
+            width: 60px;
+            height: 60px;
+        }
+
+        /* Product Lockup */
+        .lockup {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lockup-mark {
+            width: 32px;
+            height: 32px;
+        }
+
+        .lockup-divider {
+            width: 1px;
+            height: 24px;
+            background: linear-gradient(180deg, transparent, #00A6FF, transparent);
+        }
+
+        .lockup-text {
+            font-size: 20px;
+            font-weight: 400;
+            color: #fff;
+            white-space: nowrap;
+        }
+
+        .lockup-text strong {
+            font-weight: 900;
+            background: linear-gradient(135deg, #00A6FF, #4DC9FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Product Icon Container */
+        .product-icon {
+            width: 160px;
+            height: 160px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hexagonal frame */
+        .hex-frame {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border: 1.5px solid rgba(0,166,255,0.25);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Inner hexagonal glow */
+        .hex-glow {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(0,166,255,0.15) 0%, transparent 70%);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        /* Core Icon */
+        .core-icon {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #00A6FF;
+            border-radius: 50%;
+            animation: particleFloat 3s infinite ease-in-out;
+        }
+        .p1 { top: 20px; left: 40px; }
+        .p2 { top: 40px; right: 30px; animation-delay: -1s; }
+        .p3 { bottom: 30px; left: 45px; animation-delay: -2s; }
+        .p4 { bottom: 50px; right: 50px; animation-delay: -0.5s; }
+
+        @keyframes particleFloat {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Favicon Preview */
+        .favicon-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .favicon-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.5);
+        }
+        .favicon-box {
+            width: 48px;
+            height: 48px;
+            background: #1a2332;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            gap: 20px;
+            padding: 12px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            width: 100%;
+            justify-content: center;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 16px;
+            font-weight: 900;
+            color: #00A6FF;
+        }
+        .stat-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="showcase">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+
+        <div class="header">
+            <div class="brand-label">WDC Global</div>
+            <div class="brand-title">Complete Product Suite</div>
+            <div class="brand-subtitle">5 Products • 1 Design Language • Premium Redesign</div>
+        </div>
+
+        <div class="product-grid">
+            <!-- 1. COMMAND CENTER -->
+            <div class="product-card">
+                <div class="product-number">01</div>
+                <svg class="master-mark" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="masterGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00A6FF" />
+                            <stop offset="100%" style="stop-color:#0A2540" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M50 10 L90 30 V70 L50 90 L10 70 V30 Z" fill="none" stroke="url(#masterGrad1)" stroke-width="3" />
+                    <path d="M30 70 L40 30 L50 55 L60 30 L70 70" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div class="lockup">
+                    <svg class="lockup-mark" viewBox="0 0 100 100">
+                        <path d="M50 10 L90 30 V70 L50 90 L10 70 V30 Z" fill="none" stroke="url(#masterGrad1)" stroke-width="3" />
+                        <path d="M30 70 L40 30 L50 55 L60 30 L70 70" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <div class="lockup-divider"></div>
+                    <span class="lockup-text">Command<strong>Center</strong></span>
+                </div>
+                <div class="product-icon">
+                    <div class="hex-frame"></div>
+                    <div class="hex-glow"></div>
+                    <svg class="core-icon" viewBox="0 0 100 100" width="80" height="80">
+                        <defs>
+                            <linearGradient id="iconGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00A6FF" />
+                                <stop offset="100%" style="stop-color:#0A2540" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="50" cy="50" r="8" fill="url(#iconGrad1)" />
+                        <ellipse cx="50" cy="50" rx="35" ry="15" fill="none" stroke="#00A6FF" stroke-width="2" transform="rotate(30 50 50)" opacity="0.6" />
+                        <ellipse cx="50" cy="50" rx="35" ry="15" fill="none" stroke="#00A6FF" stroke-width="2" transform="rotate(-30 50 50)" opacity="0.6" />
+                        <line x1="50" y1="42" x2="50" y2="58" stroke="#00A6FF" stroke-width="1.5" opacity="0.4" />
+                        <line x1="42" y1="50" x2="58" y2="50" stroke="#00A6FF" stroke-width="1.5" opacity="0.4" />
+                    </svg>
+                    <div class="particle p1"></div>
+                    <div class="particle p2"></div>
+                    <div class="particle p3"></div>
+                    <div class="particle p4"></div>
+                </div>
+                <div class="favicon-preview">
+                    <span class="favicon-label">Favicon</span>
+                    <div class="favicon-box">
+                        <svg viewBox="0 0 100 100" width="16" height="16">
+                            <circle cx="50" cy="50" r="10" fill="#00A6FF" />
+                            <ellipse cx="50" cy="50" rx="30" ry="12" fill="none" stroke="#00A6FF" stroke-width="4" transform="rotate(30 50 50)" opacity="0.8" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value">12×12</div>
+                        <div class="stat-label">Grid</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">2.5px</div>
+                        <div class="stat-label">Stroke</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">Orbit</div>
+                        <div class="stat-label">Metaphor</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. AGENTGUARD -->
+            <div class="product-card">
+                <div class="product-number">02</div>
+                <svg class="master-mark" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="masterGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00A6FF" />
+                            <stop offset="100%" style="stop-color:#0A2540" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M50 10 L90 30 V70 L50 90 L10 70 V30 Z" fill="none" stroke="url(#masterGrad2)" stroke-width="3" />
+                    <path d="M30 70 L40 30 L50 55 L60 30 L70 70" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div class="lockup">
+                    <svg class="lockup-mark" viewBox="0 0 100 100">
+                        <path d="M50 10 L90 30 V70 L50 90 L10 70 V30 Z" fill="none" stroke="url(#masterGrad2)" stroke-width="3" />
+                        <path d="M30 70 L40 30 L50 55 L60 30 L70 70" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <div class="lockup-divider"></div>
+                    <span class="lockup-text">Agent<strong>Guard</strong></span>
+                </div>
+                <div class="product-icon">
+                    <div class="hex-frame"></div>
+                    <div class="hex-glow"></div>
+                    <svg class="core-icon" viewBox="0 0 100 100" width="80" height="80">
+                        <defs>
+                            <linearGradient id="iconGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00A6FF" />
+                                <stop offset="100%" style="stop-color:#0A2540" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Shield shape -->
+                        <path d="M50 10 L80 25 V55 C80 75 65 85 50 90 C35 85 20 75 20 55 V25 Z" fill="none" stroke="url(#iconGrad2)" stroke-width="3" />
+                        <!-- Keyhole/lock -->
+                        <circle cx="50" cy="45" r="8" fill="none" stroke="#00A6FF" stroke-width="2" />
+                        <line x1="50" y1="53" x2="50" y2="65" stroke="#00A6FF" stroke-width="2" />
+                        <!-- Defense lines -->
+                        <line x1="35" y1="30" x2="65" y2="30" stroke="#fff" stroke-width="1.5" opacity="0.5" />
+                        <line x1="32" y1="40" x2="68" y2="40" stroke="#fff" stroke-width="1" opacity="0.3" />
+                    </svg>
+                    <div class="particle p1"></div>
+                    <div class="particle p2"></div>
+                    <div class="particle p3"></div>
+                    <div class="particle p4"></div>
+                </div>
+                <div class="favicon-preview">
+                    <span class="favicon-label">Favicon</span>
+                    <div class="favicon-box">
+                        <svg viewBox="0 0 100 100" width="16" height="16">
+                            <path d="M50 10 L80 25 V55 C80 75 65 85 50 90 C35 85 20 75 20 55 V25 Z" fill="none" stroke="#00A6FF" stroke-width="6" />
+                            <circle cx="50" cy="45" r="8" fill="none" stroke="#fff" stroke-width="4" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value">12×12</div>
+                        <div class="stat-label">Grid</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">2.5px</div>
+                        <div class="stat-label">Stroke</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">Shield</div>
+                        <div class="stat-label">Metaphor</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. COMPLIANCEOS -->
+            <div class="product-card">
+                <div class="product-number">03</div>
+                <svg class="master-mark" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="masterGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00A6FF" />
+                            <stop offset="100%" style="stop-color:#0A2540" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M50 10 L90 30 V70 L50 90 L10 70 V30 Z" fill="none" stroke="url(#masterGrad3)" stroke-width="3" />
+                    <path d="M30 70 L40 30 L50 55 L60 30 L70 70" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div class="lockup">
+                    <svg class="lockup-mark" viewBox="0 0 100 100">
+                        <path d="M50 10 L90 30 V70 L50 90 L10 70 V30 Z" fill="none" stroke="url(#masterGrad3)" stroke-width="3" />
+                        <path d="M30 70 L40 30 L50 55 L60 30 L70 70" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <div class="lockup-divider"></div>
+                    <span class="lockup-text">Compliance<strong>OS</strong></span>
+                </div>
+                <div class="product-icon">
+                    <div class="hex-frame"></div>
+                    <div class="hex-glow"></div>
+                    <svg class="core-icon" viewBox="0 0 100 100" width="80" height="80">
+                        <defs>
+                            <linearGradient id="iconGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00A6FF" />
+                                <stop offset="100%" style="stop-color:#0A2540" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Interlocking geometric shapes -->
+                        <rect x="20" y="20" width="25" height="25" fill="none" stroke="url(#iconGrad3)" stroke-width="2.5" />
+                        <rect x="55" y="55" width="25" height="25" fill="none" stroke="url(#iconGrad3)" stroke-width="2.5" />
+                        <rect x="38" y="38" width="25" height="25" fill="none" stroke="#00A6FF" stroke-width="2.5" />
+                        <!-- Connection lines -->
+                        <line x1="45" y1="20" x2="45" y2="38" stroke="#00A6FF" stroke-width="1" opacity="0.5" />
+                        <line x1="20" y1="45" x2="38" y2="45" stroke="#00A6FF" stroke-width="1" opacity="0.5" />
+                        <line x1="55" y1="45" x2="63" y2="45" stroke="#00A6FF" stroke-width="1" opacity="0.5" />
+                        <line x1="45" y1="55" x2="45" y2="63" stroke="#00A6FF" stroke-width="1" opacity="0.5" />
+                    </svg>
+                    <div class="particle p1"></div>
+                    <div class="particle p2"></div>
+                    <div class="particle p3"></div>
+                    <div class="particle p4"></div>
+                </div>
+                <div class="favicon-preview">
+                    <span class="favicon-label">Favicon</span>
+                    <div class="favicon-box">
+                        <svg viewBox="0 0 100 100" width="16" height="16">
+                            <rect x="25" y="25" width="20" height="20" fill="none" stroke="#00A6FF" stroke-width="5" />
+                            <rect x="55" y="55" width="20" height="20" fill="none" stroke="#00A6FF" stroke-width="5" />
+                            <rect x="40" y="40" width="20" height="20" fill="none" stroke="#fff" stroke-width="5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value">12×12</div>
+                        <div class="stat-label">Grid</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">2.5px</div>
+                        <div class="stat-label">Stroke</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">Blocks</div>
+                        <div class="stat-label">Metaphor</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. PERMITFLOW -->
+            <div class="product-card">
+                <div class="product-number">04</div>
+                <svg class="master-mark" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="masterGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00A6FF" />
+                            <stop offset="100%" style="stop-color:#0A2540" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M50 10 L90 30 V70 L50 90 L10 70 V30 Z" fill="none" stroke="url(#masterGrad4)" stroke-width="3" />
+                    <path d="M30 70 L40 30 L50 55 L60 30 L70 70" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div class="lockup">
+                    <svg class="lockup-mark" viewBox="0 0 100 100">
+                        <path d="M50 10 L90 30 V70 L50 90 L10 70 V30 Z" fill="none" stroke="url(#masterGrad4)" stroke-width="3" />
+                        <path d="M30 70 L40 30 L50 55 L60 30 L70 70" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <div class="lockup-divider"></div>
+                    <span class="lockup-text">Permit<strong>Flow</strong></span>
+                </div>
+                <div class="product-icon">
+                    <div class="hex-frame"></div>
+                    <div class="hex-glow"></div>
+                    <svg class="core-icon" viewBox="0 0 100 100" width="80" height="80">
+                        <defs>
+                            <linearGradient id="iconGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00A6FF" />
+                                <stop offset="100%" style="stop-color:#0A2540" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Flow lines -->
+                        <path d="M20 30 H60" fill="none" stroke="url(#iconGrad4)" stroke-width="2.5" stroke-linecap="round" />
+                        <path d="M20 50 H70" fill="none" stroke="url(#iconGrad4)" stroke-width="2.5" stroke-linecap="round" />
+                        <path d="M20 70 H60" fill="none" stroke="url(#iconGrad4)" stroke-width="2.5" stroke-linecap="round" />
+                        <!-- Arrow head -->
+                        <path d="M70 42 L85 50 L70 58" fill="none" stroke="#00A6FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <!-- Movement dots -->
+                        <circle cx="50" cy="30" r="3" fill="#00A6FF" opacity="0.6" />
+                        <circle cx="40" cy="50" r="3" fill="#00A6FF" opacity="0.6" />
+                        <circle cx="50" cy="70" r="3" fill="#00A6FF" opacity="0.6" />
+                    </svg>
+                    <div class="particle p1"></div>
+                    <div class="particle p2"></div>
+                    <div class="particle p3"></div>
+                    <div class="particle p4"></div>
+                </div>
+                <div class="favicon-preview">
+                    <span class="favicon-label">Favicon</span>
+                    <div class="favicon-box">
+                        <svg viewBox="0 0 100 100" width="16" height="16">
+                            <path d="M20 30 H60" fill="none" stroke="#00A6FF" stroke-width="5" />
+                            <path d="M20 50 H70" fill="none" stroke="#00A6FF" stroke-width="5" />
+                            <path d="M20 70 H60" fill="none" stroke="#00A6FF" stroke-width="5" />
+                            <path d="M70 42 L85 50 L70 58" fill="none" stroke="#fff" stroke-width="5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value">12×12</div>
+                        <div class="stat-label">Grid</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">2.5px</div>
+                        <div class="stat-label">Stroke</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">Flow</div>
+                        <div class="stat-label">Metaphor</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. REGWATCH -->
+            <div class="product-card">
+                <div class="product-number">05</div>
+                <svg class="master-mark" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="masterGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00A6FF" />
+                            <stop offset="100%" style="stop-color:#0A2540" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M50 10 L90 30 V70 L50 90 L10 70 V30 Z" fill="none" stroke="url(#masterGrad5)" stroke-width="3" />
+                    <path d="M30 70 L40 30 L50 55 L60 30 L70 70" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div class="lockup">
+                    <svg class="lockup-mark" viewBox="0 0 100 100">
+                        <path d="M50 10 L90 30 V70 L50 90 L10 70 V30 Z" fill="none" stroke="url(#masterGrad5)" stroke-width="3" />
+                        <path d="M30 70 L40 30 L50 55 L60 30 L70 70" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <div class="lockup-divider"></div>
+                    <span class="lockup-text">Reg<strong>Watch</strong></span>
+                </div>
+                <div class="product-icon">
+                    <div class="hex-frame"></div>
+                    <div class="hex-glow"></div>
+                    <svg class="core-icon" viewBox="0 0 100 100" width="80" height="80">
+                        <defs>
+                            <linearGradient id="iconGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00A6FF" />
+                                <stop offset="100%" style="stop-color:#0A2540" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Eye shape -->
+                        <path d="M10 50 C30 30 70 30 90 50 C70 70 30 70 10 50 Z" fill="none" stroke="url(#iconGrad5)" stroke-width="2.5" />
+                        <!-- Pupil -->
+                        <circle cx="50" cy="50" r="8" fill="none" stroke="#00A6FF" stroke-width="2.5" />
+                        <!-- Radar sweep -->
+                        <path d="M50 50 L70 50" fill="none" stroke="#00A6FF" stroke-width="1.5" opacity="0.6" />
+                        <path d="M50 50 L50 30" fill="none" stroke="#00A6FF" stroke-width="1.5" opacity="0.4" />
+                        <!-- Alert dots -->
+                        <circle cx="25" cy="50" r="2" fill="#00A6FF" opacity="0.5" />
+                        <circle cx="75" cy="50" r="2" fill="#00A6FF" opacity="0.5" />
+                    </svg>
+                    <div class="particle p1"></div>
+                    <div class="particle p2"></div>
+                    <div class="particle p3"></div>
+                    <div class="particle p4"></div>
+                </div>
+                <div class="favicon-preview">
+                    <span class="favicon-label">Favicon</span>
+                    <div class="favicon-box">
+                        <svg viewBox="0 0 100 100" width="16" height="16">
+                            <path d="M10 50 C30 30 70 30 90 50 C70 70 30 70 10 50 Z" fill="none" stroke="#00A6FF" stroke-width="5" />
+                            <circle cx="50" cy="50" r="8" fill="none" stroke="#fff" stroke-width="5" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value">12×12</div>
+                        <div class="stat-label">Grid</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">2.5px</div>
+                        <div class="stat-label">Stroke</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">Eye</div>
+                        <div class="stat-label">Metaphor</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
